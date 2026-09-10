@@ -1,0 +1,42 @@
+{
+  "name": "nico-personal-api",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-01",
+  "account_id": "4c8c850094bfe30aec6addf10f0fc744",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://nicochristie.com,https://www.nicochristie.com,https://nicodunks.github.io,http://127.0.0.1:8765,http://localhost:8765",
+    "TURNSTILE_SITEKEY": "0x4AAAAAAEvf4CuJzJmnzawb"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "nico-personal-site",
+      "database_id": "26cd2e5d-5d41-4791-a1eb-74c3bb85ef83",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "POST_LIMIT",
+      "namespace_id": "916501",
+      "simple": {
+        "limit": 12,
+        "period": 60
+      }
+    },
+    {
+      "name": "VISIT_LIMIT",
+      "namespace_id": "916502",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "17 4 * * *"
+    ]
+  }
+}

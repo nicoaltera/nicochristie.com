@@ -1,0 +1,1 @@
+{"name":"nico-site-backend","private":true,"type":"module","scripts":{"test":"node --test test.mjs","dev":"wrangler dev","deploy":"wrangler deploy"},"devDependencies":{"wrangler":"4.131.0"}}

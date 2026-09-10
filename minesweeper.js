@@ -20,7 +20,7 @@ function upgradeMinesweeper(root) {
   if (root.dataset.upgraded === 'true') return;
   root.dataset.upgraded = 'true';
 
-  let presetName = 'intermediate';
+  let presetName = root.dataset.inline === 'true' ? 'beginner' : 'intermediate';
   let preset;
   let mines = [];
   let revealed = [];
