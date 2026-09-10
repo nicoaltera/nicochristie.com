@@ -7,7 +7,7 @@ const ctx = canvas.getContext('2d');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let width=0,height=0,worldHeight=0,blocks=[],walkers=[],tracks=[],last=0,frame;
 let gesture=null,particles=[],craters=[],surfaces=[],ripples=[];
-const hit=document.createElement('button');hit.id='walker-hit';hit.setAttribute('aria-label','Sand walker: click to kick; drag to move. Enter to kick; arrow keys to move.');hit.title='Click or drag me';document.body.append(hit);
+const hit=document.createElement('button');hit.id='walker-hit';hit.setAttribute('aria-label','Sand walker: grab and drag, then release to drop. Arrow keys to move.');hit.title='Grab me and drop me';document.body.append(hit);
 const speech=document.createElement('div');speech.id='walker-speech';speech.setAttribute('role','status');speech.hidden=true;document.body.append(speech);
 const colors=['#e84b45','#367dc9','#e6b629','#7856ac','#239b83','#e87aaf'];
 function resize(){
@@ -163,16 +163,6 @@ resize();frame=requestAnimationFrame(draw);
 
 function dust(w){if(reduced.matches)return;for(let i=0;i<14;i++)particles.push({x:w.x,y:w.y-4,vx:(Math.random()-.5)*80,vy:-Math.random()*55,life:.5+Math.random()*.4,color:i%3?'#b98e56':'#fff0be'});}
 function wake(){cancelAnimationFrame(frame);last=0;frame=requestAnimationFrame(draw);}
-function punch(){
- const w=walkers[0];if(!w||w.dropState||gesture)return;
- const direction=w.x<width/2?1:-1;
- const target=landing(Math.max(20,Math.min(width-20,w.x+direction*(220+Math.random()*130))),Math.max(50,Math.min(worldHeight-50,w.y+(Math.random()-.5)*160)));
- speech.textContent='wth';w.reaction=2.3;dust(w);
- hit.classList.remove('punched');void hit.offsetWidth;hit.classList.add('punched');
- if(reduced.matches){Object.assign(w,target);impact(w);w.dropState=null;}
- else{w.kickFrom={x:w.x,y:w.y};w.kickTo=target;w.dropState='kicked';w.stateTime=0;w.kickDirection=direction;w.wasLifted=false;}
- wake();
-}
 function landing(x,y){if(free(x,y))return{x,y};for(let r=8;r<Math.max(width,worldHeight);r+=8)for(let a=0;a<Math.PI*2;a+=.3){const nx=x+Math.cos(a)*r,ny=y+Math.sin(a)*r;if(free(nx,ny))return{x:nx,y:ny};}return {x:12,y:50};}
 hit.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();const w=walkers[0];if(!w)return;gesture={id:e.pointerId,x:e.clientX+scrollX,y:e.clientY+scrollY,ox:w.x+(w.airX||0),oy:w.y-(w.lift||0),dragging:false};hit.setPointerCapture(e.pointerId);hit.blur();});
 hit.addEventListener('pointermove',e=>{
@@ -198,12 +188,12 @@ function release(e,cancelled=false){
   else if(reduced.matches){impact(w);w.dropState=null;w.squash=0;}
   else w.dropState='falling';
   wake();
- }else if(!cancelled)punch();
+ }
 }
 
 hit.addEventListener('pointerup',e=>release(e));hit.addEventListener('pointercancel',e=>release(e,true));
 hit.addEventListener('lostpointercapture',e=>release(e,true));
-hit.addEventListener('click',e=>{if(e.detail===0)punch();});
+
 hit.addEventListener('keydown',e=>{const delta={ArrowLeft:[-18,0],ArrowRight:[18,0],ArrowUp:[0,-18],ArrowDown:[0,18]}[e.key];if(!delta)return;e.preventDefault();const w=walkers[0];if(w.dropState||gesture)return;Object.assign(w,landing(w.x+delta[0],w.y+delta[1]));dust(w);wake();});
 
 function impact(w){
