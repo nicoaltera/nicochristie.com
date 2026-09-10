@@ -4,15 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <script>
-      // Scale a wide collage inside the real device viewport; retain native pinch zoom.
+      // Fit the tablet collage and phone Paint canvas; retain native pinch zoom.
       function syncMobileOverview() {
-        const width = document.documentElement.clientWidth || window.innerWidth;
+        const width = window.innerWidth;
+        const contentWidth = document.documentElement.clientWidth || width;
         const mobile = width <= 900;
         document.documentElement.classList.toggle('mobile-overview', mobile);
-        document.documentElement.style.setProperty('--overview-scale', String((width - 16) / 1040));
+        document.documentElement.style.setProperty('--overview-scale', String((contentWidth - 16) / 1040));
+        document.documentElement.style.setProperty('--phone-paint-scale', String(Math.max(240, contentWidth - 58) / 720));
         window.dispatchEvent(new Event('overview-layout-change'));
       }
       syncMobileOverview();
+      document.addEventListener('DOMContentLoaded', syncMobileOverview);
       window.addEventListener('resize', syncMobileOverview);
     </script>
     <meta name="theme-color" content="#008080" />

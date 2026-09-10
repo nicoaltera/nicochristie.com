@@ -500,3 +500,97 @@ html.mobile-overview #portal .mobile-utilities .paint-launch{white-space:normal}
 /* Hover below his face; the held glove is drawn around his body in the scene. */
 #walker-hit{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2272%22%20height%3D%2288%22%20viewBox%3D%220%200%2096%20112%22%3E%3Cg%20transform%3D%22translate%280%2018%29%22%20stroke%3D%22%23393143%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M24%2075%2019%2054%207%2043Q2%2034%2010%2031Q15%2029%2027%2040L19%2017Q17%208%2024%207Q30%206%2033%2014L41%2033%2036%209Q36%202%2043%203Q49%203%2050%2011L54%2032%2055%2013Q57%205%2063%208Q69%2010%2067%2018L65%2039%2072%2025Q77%2018%2083%2023Q87%2027%2083%2034L74%2060Q70%2071%2062%2077Z%22%20fill%3D%22%23fffdf5%22%2F%3E%3Cpath%20d%3D%22M23%2073%2065%2073%2068%2091%2023%2091Z%22%20fill%3D%22%23e9e5f3%22%2F%3E%3Cpath%20d%3D%22M31%2047Q43%2041%2056%2048M37%2055Q48%2050%2060%2054%22%20fill%3D%22none%22%20stroke%3D%22%23b8afbe%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 32 0,grab}
 #walker-hit.dragging{cursor:none}
+
+html.mobile-overview{scrollbar-width:none}
+html.mobile-overview::-webkit-scrollbar,html.mobile-overview body::-webkit-scrollbar{display:none}
+html.mobile-overview body{width:100%;min-width:0;overflow:visible}
+#portal .fruitless-chart img{aspect-ratio:5/4}
+
+/* Real phone layout: two readable columns, without scaling the whole document. */
+@media(max-width:600px){
+ html.mobile-overview #portal{zoom:1;width:100%;max-width:100%;padding:16px 14px 32px;margin:0}
+ html.mobile-overview #portal .masthead{grid-template-columns:80px minmax(0,1fr) 80px;gap:4px 8px;padding:8px 0 16px;margin:0 0 10px}
+ html.mobile-overview #portal .masthead>.identity{grid-column:1/-1;grid-row:1}
+ html.mobile-overview #portal .identity h1{font-size:clamp(31px,8.8vw,49px);letter-spacing:-2px;line-height:1.15}
+ html.mobile-overview #portal .name-row{gap:7px}
+ html.mobile-overview #portal .name-row .fried-fire{width:24px;height:36px;flex-basis:24px}
+ html.mobile-overview #portal .tagline{font-size:13px;margin:12px 0 4px;white-space:nowrap}
+ html.mobile-overview #portal .masthead>.usa-sticker{grid-row:2;grid-column:1;width:73px;margin:0;transform:rotate(-8deg)}
+ html.mobile-overview #portal .masthead>.cuba-postcard{grid-row:2;grid-column:3;width:72px;margin:0 0 8px;transform:rotate(7deg)}
+ html.mobile-overview #portal .mobile-social{margin:0 0 16px}
+ html.mobile-overview #portal .mobile-social .nav-stack{padding:4px;gap:5px;border-width:2px}
+ html.mobile-overview #portal .mobile-social .nav-stack>a{font-size:14px;gap:4px;padding:7px 2px;border-width:3px;white-space:nowrap}
+ html.mobile-overview #portal .mobile-social .p-icon{width:15px;height:15px}
+ html.mobile-overview #portal .sunset{min-height:72px;padding:9px 5px;margin-bottom:21px}
+ html.mobile-overview #portal .sunset>span{font-size:12px}
+ html.mobile-overview #portal .sunset strong{font-size:18px}
+ html.mobile-overview #portal .feature-grid.content-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 12px}
+ html.mobile-overview #portal .content-stack,html.mobile-overview #portal .content-stack:last-child{display:contents}
+ html.mobile-overview #portal .content-columns .panel{padding:11px 9px;min-width:0;margin:0;height:auto;align-self:start}
+ html.mobile-overview #portal .content-columns .shortcut{order:1;transform:rotate(-2deg)}
+ html.mobile-overview #portal .content-columns .dunks{order:2;transform:rotate(2deg);padding-bottom:13px}
+ html.mobile-overview #portal .content-columns .xbench{order:3;transform:rotate(2deg)}
+ html.mobile-overview #portal .content-columns .research{order:4;transform:rotate(-2.4deg)}
+ html.mobile-overview #portal .content-columns .champion{order:5;transform:rotate(-1.5deg)}
+ html.mobile-overview #portal .content-columns .press{order:6;transform:rotate(2deg)}
+ html.mobile-overview #portal .feature-grid .shortcut-title{font:900 clamp(12px,3.7vw,20px)/1.2 Arial,sans-serif!important;letter-spacing:-.4px;white-space:nowrap;margin:4px 0 9px;text-shadow:1px 1px #fff}
+ html.mobile-overview #portal .shortcut .intro{font:bold 14px/1.22 Arial,sans-serif;margin:0 0 10px}
+ html.mobile-overview #portal .dunk-title{font:900 clamp(22px,6.4vw,34px)/1.05 Impact,'Arial Black',sans-serif!important;letter-spacing:-.7px;-webkit-text-stroke:0;margin:2px 0 10px;text-shadow:1px 1px #fff800,2px 2px #bd004b}
+ html.mobile-overview #portal .feature-grid .xbench-title{font-size:26px!important;letter-spacing:0;margin-bottom:9px}
+ html.mobile-overview #portal .feature-grid .intro{font-size:14px}
+ html.mobile-overview #portal .research h2,html.mobile-overview #portal .champion h2{font-size:16px!important;line-height:1.15;min-height:0;margin:0 0 10px;padding:0}
+ html.mobile-overview #portal .research p{font-size:11px;line-height:1.3}
+ html.mobile-overview #portal .photo-link{margin:9px 0;border-width:2px}
+ html.mobile-overview #portal .play{font-size:20px;width:30px;height:28px;line-height:28px}
+ html.mobile-overview #portal .pink-button{font-size:14px!important;padding:5px 7px}
+ html.mobile-overview #portal .text-link{font-size:13px}
+ html.mobile-overview #portal .burst{width:46px;height:46px;top:-15px;right:-7px;font-size:16px}
+ html.mobile-overview #portal .shortcut .burst{width:66px;height:48px;top:-21px;right:-4px}
+ html.mobile-overview #portal .shortcut .burst b{font-size:12px;line-height:1;max-width:52px}
+ html.mobile-overview #portal .dunks-callout{right:-4px;bottom:-17px;padding:6px 8px;border-width:2px;border-radius:6px;box-shadow:3px 3px #ff168d;transform:rotate(-8deg)}
+ html.mobile-overview #portal .dunks-callout span{font-size:18px}
+ html.mobile-overview #portal .dunks-callout::before{width:12px;height:12px;top:-11px;right:17px;border-width:2px}
+ html.mobile-overview #portal .press img{padding:4px;border-width:2px}
+ html.mobile-overview #portal .press>a:last-child{font-size:13px}
+ html.mobile-overview #portal .mobile-utilities{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin:28px 0 24px}
+ html.mobile-overview #portal .mobile-utility-column{gap:15px;min-width:0}
+ html.mobile-overview #portal .mobile-utility-column:last-child{grid-column:1/-1;width:255px;max-width:90%;justify-self:center;gap:9px}
+ html.mobile-overview #portal .mobile-utilities .book,html.mobile-overview #portal .mobile-utilities .mail-panel{padding:12px 9px}
+ html.mobile-overview #portal .book h2{font-size:18px!important;line-height:1.12}
+ html.mobile-overview #portal .book-pdf{width:68px;height:83px;margin:10px auto}
+ html.mobile-overview #portal .book-pdf .p-icon{width:62px;height:76px}
+ html.mobile-overview #portal .mail-panel h2{font-size:20px}
+ html.mobile-overview #portal .mail-art{width:65px;height:54px}
+ html.mobile-overview #portal .mail-panel>a{font-size:12px}
+ html.mobile-overview #portal .counter{padding:8px;font-size:15px}
+ html.mobile-overview #portal .digits{font-size:22px;letter-spacing:2px}
+ html.mobile-overview #portal .counter>span{font-size:10px}
+ html.mobile-overview #portal .mobile-utilities .inline-mines .minesweeper{--ms-cell-size:23px}
+ html.mobile-overview #portal .main-column>.fruitless{width:100%;padding:13px 12px;margin:24px 0;transform:rotate(.6deg)}
+ html.mobile-overview #portal .fruitless h2{font-size:29px;margin-bottom:12px}
+ html.mobile-overview #portal .fruitless-layout{grid-template-columns:1fr;gap:14px}
+ html.mobile-overview #portal .fruitless-layout .fruitless-copy p{font-size:14px;line-height:1.35}
+ html.mobile-overview #portal .fruitless-layout .fruitless-chart{width:220px;max-width:85%;justify-self:center}
+ html.mobile-overview #portal .fruitless-copy>a{font-size:14px}
+ html.mobile-overview #portal .wall-gallery.mobile-art:not(:empty){grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 13px;margin:20px 0;padding:4px}
+ html.mobile-overview #portal .wall-drawing{padding:6px}
+ html.mobile-overview #portal .wall-drawing figcaption strong{font-size:15px}
+ html.mobile-overview #portal .wall-drawing figcaption span{font-size:11px}
+ html.mobile-overview #portal .paint-wall{padding:12px 13px;margin:24px 0 0;transform:none}
+ html.mobile-overview #portal .wall-heading>.paint-post{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%}
+ html.mobile-overview #portal .wall-heading .paint-post>label{font-size:12px;gap:4px;min-width:0}
+ html.mobile-overview #portal .wall-heading input{font-size:16px;padding:6px;width:100%}
+ html.mobile-overview #portal .wall-heading .paint-post>button[type=submit]{grid-column:1/-1;justify-self:end;min-height:36px;font-size:16px!important;padding:8px 13px}
+ html.mobile-overview #portal .wall-heading .paint-post-status{grid-column:1/-1;font-size:13px}
+ html.mobile-overview #portal .wall-heading>.paint-expand{font-size:16px!important;min-height:38px;padding:8px}
+ html.mobile-overview #inline-paint{width:720px;zoom:var(--phone-paint-scale);margin-top:16px}
+ html.mobile-overview #inline-paint>.app.paint{width:720px;height:auto;min-height:0}
+ html.mobile-overview #inline-paint .paint-tools{gap:4px;padding:4px}
+ html.mobile-overview #inline-paint .paint-tool{height:32px}
+ html.mobile-overview #inline-paint .paint-tooloptions{gap:3px;padding:3px 2px}
+ html.mobile-overview #inline-paint .paint-opt{height:19px}
+ html.mobile-overview #inline-paint .paint-tools .paint-swatches{grid-template-columns:repeat(8,11px);grid-template-rows:repeat(4,18px);gap:2px}
+ html.mobile-overview #inline-paint .paint-tools .paint-swatch{width:11px;height:18px}
+ html.mobile-overview #inline-paint .paint-tools .paint-current{flex-basis:30px;transform:scale(.7);transform-origin:center}
+ html.mobile-overview #inline-paint .paint-tools .paint-palette{gap:2px;padding:2px 0}
+}
