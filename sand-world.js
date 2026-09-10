@@ -42,8 +42,8 @@ function ripple(w,strong=false){
 
 function free(x,y){return x>8&&x<width-8&&y>22&&y<worldHeight-42&&!blocks.some(r=>x>r.left-7&&x<r.right+7&&y>r.top-5&&y<r.bottom+23);}
 function person(w,time){
- const s=1.65, moving=!reduced.matches;
- const gait=moving?Math.sin(w.phase)*2:0;
+ const held=Boolean(gesture?.dragging),s=held?2.5:1.65, moving=!reduced.matches;
+ const gait=moving?Math.sin(held?time*.023:w.phase)*(held?3:2):0;
  const reaction=w.reaction||0,lift=w.lift||0;
  ctx.save();ctx.translate(Math.round(w.x),Math.round(w.y));
  // The shadow stays on the sand while the little guy dangles overhead.
@@ -58,7 +58,7 @@ function person(w,time){
 
  ctx.translate(w.airX||0,-lift);
  if(w.dropState==='kicked'&&!reduced.matches)ctx.rotate(w.stateTime*15*w.kickDirection);
- if(gesture?.dragging&&!reduced.matches)ctx.rotate(Math.sin(time*.009)*.18);
+ if(held&&!reduced.matches){ctx.translate(Math.sin(time*.017)*2,0);ctx.rotate(Math.sin(time*.014)*.12);}
  if(!reduced.matches&&reaction>0)ctx.rotate(Math.sin(reaction*15)*Math.min(reaction,.6)*.7);
  ctx.scale(s*(1+(w.squash||0)),s*(1-(w.squash||0)));
  const facing=Math.cos(w.angle)>0?1:-1;ctx.scale(facing,1);
@@ -70,6 +70,24 @@ function person(w,time){
  px(-6,-11+flail,2,6-gait,'#d4a17e');px(4,-11+flail,2,6+gait,'#eac09a');
  px(-3,-18,6,6,'#eac09a');px(-3,-18,6,2,'#49352c');px(-3,-16,1,2,'#49352c');
  px(2,-15,1,1,'#292a35');
+ ctx.restore();
+ if(held)drawHoldingGlove(w);
+}
+function drawHoldingGlove(w){
+ // The grip stays steady below the enlarged head while his limbs squirm.
+ ctx.save();ctx.translate(w.x+(w.airX||0),w.y-(w.lift||0));
+ ctx.lineWidth=2.2;ctx.lineJoin='round';ctx.strokeStyle='#393143';ctx.fillStyle='#fffdf5';
+ ctx.shadowColor='#30213144';ctx.shadowBlur=4;ctx.shadowOffsetY=2;
+ ctx.beginPath();ctx.moveTo(46,-25);ctx.bezierCurveTo(30,-32,20,-23,8,-25);
+ ctx.bezierCurveTo(-13,-29,-18,-21,-9,-16);ctx.bezierCurveTo(-21,-11,-13,-4,-3,-5);
+ ctx.bezierCurveTo(1,5,25,6,45,-2);ctx.closePath();ctx.fill();ctx.stroke();
+ ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+ ctx.beginPath();ctx.moveTo(25,-24);ctx.bezierCurveTo(15,-33,6,-33,0,-28);
+ ctx.bezierCurveTo(-5,-24,-1,-18,8,-18);ctx.lineTo(19,-16);ctx.fill();ctx.stroke();
+ ctx.strokeStyle='#b8afbe';ctx.lineWidth=1.5;
+ ctx.beginPath();ctx.moveTo(-8,-16);ctx.quadraticCurveTo(3,-12,14,-14);ctx.moveTo(-3,-7);ctx.quadraticCurveTo(7,-3,17,-7);ctx.stroke();
+ ctx.fillStyle='#e9e5f3';ctx.strokeStyle='#393143';ctx.lineWidth=2.2;
+ ctx.beginPath();ctx.moveTo(44,-27);ctx.lineTo(63,-30);ctx.lineTo(66,0);ctx.lineTo(44,3);ctx.closePath();ctx.fill();ctx.stroke();
  ctx.restore();
 }
 function draw(now){
