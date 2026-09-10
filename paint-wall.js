@@ -2,15 +2,23 @@ import {apiUrl,challenge,canvasPixels} from './backend-client.js';
 import {createInlinePaint} from './assets/index-XbenchA1.js';
 // Use the existing Paint tools; posts persist in the local preview database.
 let galleries, message;
+function arrangeArt(){
+ const left=document.querySelector('#wall-left'),right=document.querySelector('#wall-right'),mobile=document.querySelector('#wall-mobile');
+ if(!left||!right||!mobile)return;
+ const drawings=[...document.querySelectorAll('.wall-drawing')].sort((a,b)=>Number(a.dataset.wallOrder)-Number(b.dataset.wallOrder));
+ const isMobile=document.documentElement.classList.contains('mobile-overview');
+ drawings.forEach((item,i)=>(isMobile?mobile:i%2?right:left).append(item));
+}
+window.addEventListener('overview-layout-change',arrangeArt);
 async function loadWall(){
  galleries=[document.querySelector('#wall-left'),document.querySelector('#wall-right')];message=document.querySelector('.wall-message');
  if(galleries.some(g=>!g))return;
  try{
   const r=await fetch(apiUrl('/api/wall'));if(!r.ok)throw new Error();const {posts}=await r.json();
-  galleries.forEach(g=>g.replaceChildren());
+  galleries.forEach(g=>g.replaceChildren());document.querySelector('#wall-mobile')?.replaceChildren();
   let index=0;
   for(const post of posts){
-   const item=document.createElement('figure');item.className='wall-drawing';item.id='wall-post-'+post.id;
+   const item=document.createElement('figure');item.className='wall-drawing';item.id='wall-post-'+post.id;item.dataset.wallOrder=String(index);
    // Stable variation: each drawing keeps its placement when the wall refreshes.
    let seed=0;for(const char of post.id)seed=(Math.imul(seed,31)+char.charCodeAt(0))>>>0;
    item.style.setProperty('--art-tilt',`${(seed%91-45)/10}deg`);
@@ -22,6 +30,7 @@ async function loadWall(){
    const byline=document.createElement('span');byline.textContent=`${post.name} · ${new Date(post.created_at.endsWith('Z')?post.created_at:post.created_at+'Z').toLocaleDateString()}`;
    caption.append(title,byline);item.append(link,caption);galleries[index++%2].append(item);
   }
+  arrangeArt();
   message.textContent=posts.length?'':'Your drawing could be the first. Open Paint, make something, and post it here.';
  }catch{message.textContent='Could not load the wall. ';const retry=document.createElement('button');retry.textContent='Try again';retry.addEventListener('click',loadWall);message.append(retry);}
 }

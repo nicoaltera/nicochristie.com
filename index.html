@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      // Scale a wide collage inside the real device viewport; retain native pinch zoom.
+      function syncMobileOverview() {
+        const width = document.documentElement.clientWidth || window.innerWidth;
+        const mobile = width <= 900;
+        document.documentElement.classList.toggle('mobile-overview', mobile);
+        document.documentElement.style.setProperty('--overview-scale', String((width - 16) / 1040));
+        window.dispatchEvent(new Event('overview-layout-change'));
+      }
+      syncMobileOverview();
+      window.addEventListener('resize', syncMobileOverview);
+    </script>
     <meta name="theme-color" content="#008080" />
     <meta name="color-scheme" content="light" />
     <meta name="format-detection" content="telephone=no" />

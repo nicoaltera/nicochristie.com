@@ -41,6 +41,7 @@ root.innerHTML = `
     <p><strong>In the setting shown in the chart, male-cue responses rose from zero to 1–5 spikes across three trials after mAL output was blocked.</strong></p><p>The second inhibition setting also showed an increase in male-cue responses.</p>
     <p>We used the measured MaleCNS wiring graph: 166,606 classified neurons and approximately 25.6 million connections. Simple spiking-neuron rules turn that anatomy into a simulation.</p><p>The experiment compares the same network receiving identical sensory inputs with <strong>one intervention: blocking mAL output</strong>.</p>
     <a href="https://github.com/nicodunks/fruitless/blob/main/experiment/followup/RESULTS.md" target="_blank" rel="noopener noreferrer">full report</a></div><a class="fruitless-chart" href="/assets/fruitless-cue-response.png" target="_blank" rel="noopener noreferrer" aria-label="Open Fruitless response chart full size"><img src="/assets/fruitless-cue-response.png" alt="Across three trials, male-cue spikes rise from zero to 1, 4, and 5 after mAL output is blocked; female-cue spikes rise from 8–11 to 18–20." loading="lazy"></a></div></article>
+  <div class="wall-gallery mobile-art" id="wall-mobile" aria-label="Visitor art"></div>
   <section class="paint-wall panel" id="paint-wall"><div class="wall-heading"></div><div id="inline-paint"></div><p class="wall-message" role="status">Loading drawings…</p></section>
  </section>
  <aside class="right-rail">
@@ -106,3 +107,16 @@ recordVisit(document.querySelector('#visitor-count')).then(count=>{
 }
 
 import "./paint-wall.js";
+
+// On phones, reorganize the sidebar content into three columns in the main flow.
+const mobileUtilities=document.createElement('div');mobileUtilities.className='mobile-utilities';
+const utilityColumns=Array.from({length:3},()=>{const col=document.createElement('div');col.className='mobile-utility-column';mobileUtilities.append(col);return col;});
+root.querySelector('.fruitless').before(mobileUtilities);
+const mobileNav=document.createElement('div');mobileNav.className='mobile-social';root.querySelector('.sunset').before(mobileNav);
+const mobileMoves=[];
+for(const [selector,destination] of [
+ ['.nav-stack',mobileNav],['.guadalupe-sticker',utilityColumns[0]],['.counter',utilityColumns[0]],['.paint-launch',utilityColumns[0]],
+ ['.book',utilityColumns[1]],['.mail-panel',utilityColumns[1]],['.cuban-cigar',utilityColumns[2]],['.inline-mines',utilityColumns[2]]
+]){const node=root.querySelector(selector),anchor=document.createComment('desktop placement');node.before(anchor);mobileMoves.push({node,anchor,destination});}
+function arrangeMobileUtilities(){const mobile=document.documentElement.classList.contains('mobile-overview');for(const {node,anchor,destination} of mobileMoves){if(mobile){if(node.parentElement!==destination)destination.append(node);}else if(node.previousSibling!==anchor)anchor.after(node);}}
+window.addEventListener('overview-layout-change',arrangeMobileUtilities);arrangeMobileUtilities();
