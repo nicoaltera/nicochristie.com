@@ -29,11 +29,11 @@ root.innerHTML = `
 
    </div>
    <div class="content-stack">
-    <article class="panel dunks"><h2 class="dunk-title">Nicodunks</h2><button class="photo-link" data-app="media"><img src="/assets/nicodunks-youtube.jpg" alt="Nicodunks YouTube video thumbnail"><span class="play">▶</span></button>${app('media','Nicodunks →','pink-button')}<div class="dunks-callout"><span>thats me!</span></div></article>
+    <article class="panel dunks"><h2 class="dunk-title">Nicodunks</h2><button class="photo-link" data-app="media"><img src="/assets/nicodunks-youtube.jpg" alt="Nicodunks YouTube video thumbnail"><span class="play">▶</span></button><div class="dunks-callout"><span>thats me!</span></div></article>
     <article class="panel champion">${badge('HOT!')}<h2><button class="text-link" data-app="excel">${excelFeature.title}</button></h2><button class="photo-link" data-app="excel"><img src="${excelFeature.image}" alt="${excelFeature.title}"><span class="play">▶</span></button></article>
    </div>
    <div class="content-stack">
-    <article class="panel xbench"><h2 class="xbench-title">Xbench</h2><p class="intro">${xbSub}</p><button class="photo-link project-photo" data-app="xbench"><img src="/assets/xbench-preview.png" alt="Xbench preview"></button>${app('xbench','Xbench →','pink-button')}</article>
+    <article class="panel xbench"><h2 class="xbench-title">Xbench</h2><p class="intro">${xbSub}</p><button class="photo-link project-photo" data-app="xbench"><img src="/assets/xbench-preview.png" alt="Xbench preview"></button></article>
     <article class="panel press"><a href="${pressUrl}" target="_blank" rel="noopener noreferrer"><img src="/assets/wsj-article.png" alt="WSJ Feature"></a><a href="${pressUrl}" target="_blank" rel="noopener noreferrer">Read in WSJ →</a></article>
    </div>
   </div>
