@@ -38,8 +38,9 @@ root.innerHTML = `
    </div>
   </div>
     <article class="panel fruitless"><svg class="fruitless-fly" aria-hidden="true" viewBox="0 0 100 110"><g fill="none" stroke="#302421" stroke-width="4" stroke-linecap="round"><path d="M43 47 25 34 15 39M42 60 20 59 12 68M44 73 29 85 27 97M57 47 75 34 85 39M58 60 80 59 88 68M56 73 71 85 73 97"/></g><ellipse cx="50" cy="70" rx="15" ry="25" fill="#374638" stroke="#171b16" stroke-width="3"/><path d="M38 67h24M38 76h24M42 85h16" stroke="#8d995a" stroke-width="3"/><g class="fly-wing fly-wing-left"><ellipse cx="28" cy="42" rx="18" ry="32" transform="rotate(-32 28 42)" fill="#e1faff" fill-opacity=".85" stroke="#676cad" stroke-width="2"/><path d="M42 62 14 21M40 59 15 42" stroke="#98a7ca" stroke-width="1.5"/></g><g class="fly-wing fly-wing-right"><ellipse cx="72" cy="42" rx="18" ry="32" transform="rotate(32 72 42)" fill="#e1faff" fill-opacity=".85" stroke="#676cad" stroke-width="2"/><path d="M58 62 86 21M60 59 85 42" stroke="#98a7ca" stroke-width="1.5"/></g><ellipse cx="50" cy="43" rx="13" ry="17" fill="#26372a"/><ellipse cx="50" cy="25" rx="15" ry="12" fill="#3b3925"/><ellipse cx="39" cy="24" rx="8" ry="10" fill="#fa341d" stroke="#67160c" stroke-width="2"/><ellipse cx="61" cy="24" rx="8" ry="10" fill="#fa341d" stroke="#67160c" stroke-width="2"/><path d="M46 16 42 8M54 16 58 8" stroke="#201f19" stroke-width="3"/></svg><h2>Fruitless</h2><div class="fruitless-layout"><div class="fruitless-copy">
-    <p><strong>In the setting shown in the chart, male-cue responses rose from zero to 1–5 spikes across three trials after mAL output was blocked.</strong></p><p>The second inhibition setting also showed an increase in male-cue responses.</p>
-    <p>We used the measured MaleCNS wiring graph: 166,606 classified neurons and approximately 25.6 million connections. Simple spiking-neuron rules turn that anatomy into a simulation.</p><p>The experiment compares the same network receiving identical sensory inputs with <strong>one intervention: blocking mAL output</strong>.</p>
+    <p>We used the measured MaleCNS wiring graph: 166,606 classified neurons and approximately 25.6 million connections.</p>
+    <p>The experiment compares the same network receiving identical sensory inputs with <strong>one intervention: blocking mAL output</strong>.</p>
+    <p><strong>In the setting shown in the chart, male-cue responses rose from zero to 1–5 spikes across three trials after mAL output was blocked.</strong></p>
     <a href="https://github.com/nicodunks/fruitless/blob/main/experiment/followup/RESULTS.md" target="_blank" rel="noopener noreferrer">full report</a></div><a class="fruitless-chart" href="/assets/fruitless-cue-response.png" target="_blank" rel="noopener noreferrer" aria-label="Open Fruitless response chart full size"><img src="/assets/fruitless-cue-response.png" alt="Across three trials, male-cue spikes rise from zero to 1, 4, and 5 after mAL output is blocked; female-cue spikes rise from 8–11 to 18–20." loading="lazy"></a></div></article>
   <div class="wall-gallery mobile-art" id="wall-mobile" aria-label="Visitor art"></div>
   <section class="paint-wall panel" id="paint-wall"><div class="wall-heading"></div><div id="inline-paint"></div><p class="wall-message" role="status">Loading drawings…</p></section>
@@ -115,8 +116,23 @@ root.querySelector('.fruitless').before(mobileUtilities);
 const mobileNav=document.createElement('div');mobileNav.className='mobile-social';root.querySelector('.sunset').before(mobileNav);
 const mobileMoves=[];
 for(const [selector,destination] of [
- ['.nav-stack',mobileNav],['.guadalupe-sticker',utilityColumns[0]],['.counter',utilityColumns[0]],['.paint-launch',utilityColumns[0]],
- ['.book',utilityColumns[1]],['.mail-panel',utilityColumns[1]],['.cuban-cigar',utilityColumns[2]],['.inline-mines',utilityColumns[2]]
+ ['.nav-stack',mobileNav],['.cuban-cigar',utilityColumns[0]],['.inline-mines',utilityColumns[0]],['.guadalupe-sticker',utilityColumns[0]],['.counter',utilityColumns[0]],['.paint-launch',utilityColumns[0]],
+ ['.book',utilityColumns[1]],['.mail-panel',utilityColumns[1]]
 ]){const node=root.querySelector(selector),anchor=document.createComment('desktop placement');node.before(anchor);mobileMoves.push({node,anchor,destination});}
-function arrangeMobileUtilities(){const mobile=document.documentElement.classList.contains('mobile-overview');for(const {node,anchor,destination} of mobileMoves){if(mobile){if(node.parentElement!==destination)destination.append(node);}else if(node.previousSibling!==anchor)anchor.after(node);}}
+// Two continuous phone columns: each card follows the previous one, without row gaps.
+const collage=root.querySelector('.feature-grid');
+const phoneColumns=[0,1].map(()=>{const el=document.createElement('div');el.className='phone-stack';collage.append(el);return el;});
+const phoneMoves=[];
+for(const [column,selectors] of [
+ [0,['.shortcut','.research','.champion','.cuban-cigar','.inline-mines','.guadalupe-sticker']],
+ [1,['.dunks','.xbench','.press','.book','.mail-panel','.counter','.paint-launch']]
+])for(const selector of selectors){const node=root.querySelector(selector),anchor=document.createComment('normal placement');node.before(anchor);phoneMoves.push({node,anchor,column});}
+function arrangeMobileUtilities(){
+ for(const {node,anchor} of phoneMoves)anchor.after(node);
+ const mobile=document.documentElement.classList.contains('mobile-overview');
+ for(const {node,anchor,destination} of mobileMoves){if(mobile)destination.append(node);else anchor.after(node);}
+ const compact=window.innerWidth<=600;
+ root.classList.toggle('phone-flow',compact);
+ if(compact)for(const {node,column} of phoneMoves)phoneColumns[column].append(node);
+}
 window.addEventListener('overview-layout-change',arrangeMobileUtilities);arrangeMobileUtilities();

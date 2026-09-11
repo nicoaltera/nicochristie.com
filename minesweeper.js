@@ -39,6 +39,7 @@ function upgradeMinesweeper(root) {
   root.innerHTML = `
     <div class="ms-toolbar" role="toolbar" aria-label="Game difficulty">
       ${Object.entries(PRESETS).map(([key, item]) => `<button type="button" class="ms-difficulty" data-preset="${key}" aria-pressed="false">${item.label}</button>`).join('')}
+      <span class="ms-hint" title="Click to reveal · Right-click or F to flag · Click a number to clear around it">Click to reveal</span>
       <button type="button" class="ms-mode" aria-pressed="false" title="Useful on touch screens">🚩 Flag mode</button>
     </div>
     <div class="ms-header">
@@ -48,7 +49,6 @@ function upgradeMinesweeper(root) {
     </div>
     <div class="ms-grid-wrap"><div class="ms-grid" role="grid" aria-label="Minesweeper board"></div></div>
     <div class="ms-status" aria-live="polite"><span class="ms-progress"></span><span class="ms-best"></span></div>
-    <div class="ms-hint">Click to reveal · Right-click or F to flag · Click a number to clear around it</div>
   `;
 
   const grid = root.querySelector('.ms-grid');
