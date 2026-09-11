@@ -594,3 +594,12 @@ html.mobile-overview body{width:100%;min-width:0;overflow:visible}
  html.mobile-overview #inline-paint .paint-tools .paint-current{flex-basis:30px;transform:scale(.7);transform-origin:center}
  html.mobile-overview #inline-paint .paint-tools .paint-palette{gap:2px;padding:2px 0}
 }
+
+/* Primary actions in saturated red; the invitation to Paint gets its own blue. */
+#portal .pink-button,#portal .nav-stack>a,#portal .paint-post>button[type=submit]{background:linear-gradient(#ff5d47 0%,#f11815 46%,#d90008 72%,#fa2820 100%);border-color:#ffaaa0 #90000a #a6000a #ff9285;color:white;text-shadow:1px 1px #790005}
+#portal .pink-button.paint-launch{background:linear-gradient(#639bff 0%,#1764ef 46%,#003bd4 72%,#286eff 100%);border-color:#afcdff #00236f #002b91 #97bdff;text-shadow:1px 1px #002b77}
+#portal .sand-crop-circle{width:100%;max-width:250px;transform:rotate(-12deg);padding-top:35px;opacity:.85}
+#portal .sand-crop-circle svg{width:100%;max-width:none;fill:none;opacity:1;filter:none}
+.sand-etch-light{stroke:#fff0c8;stroke-width:4;opacity:.65}
+.sand-etch-dark{stroke:#6a4927;stroke-width:3.5;opacity:.62}
+.sand-etch-core{stroke:#8c673b;stroke-width:1.2;stroke-dasharray:13 .8 4 .5;opacity:.85}
